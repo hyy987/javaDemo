@@ -1,6 +1,9 @@
 package com.bjsxt.test;
 
-import java.lang.reflect.Constructor;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 import com.bjsxt.singleton.SingletonDemo6;
 
@@ -19,14 +22,24 @@ public class Client2 {
 		System.out.println(s1);
 		System.out.println(s2);
 		
+		/*//通过反射的反射直接调用私有构造器
 		Class<SingletonDemo6> s6 = (Class<SingletonDemo6>)Class.forName("com.bjsxt.singleton.SingletonDemo6");
-	
-		
-		Constructor<SingletonDemo6> c =s6.getConstructor(null);
+		Constructor<SingletonDemo6> c =s6.getDeclaredConstructor(null);
 		c.setAccessible(true);
 		SingletonDemo6 s60 = c.newInstance();
 		SingletonDemo6 s61 = c.newInstance();
 		System.out.println(s60);
-		System.out.println(s61);
+		System.out.println(s61);*/
+		
+		//通过反序列化方式构造多个对象
+		FileOutputStream fos = new FileOutputStream("d:/a.txt");
+		ObjectOutputStream oos = new ObjectOutputStream(fos);
+		oos.writeObject(s1);
+		oos.close();
+		fos.close();
+		ObjectInputStream ois = new ObjectInputStream(new FileInputStream("d:/a.txt"));
+		SingletonDemo6 s3 =(SingletonDemo6)ois.readObject();
+		System.out.println(s3);
+		
 	}
 }
