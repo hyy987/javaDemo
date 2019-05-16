@@ -8,7 +8,7 @@ package com.bjsxt.singleton;
  */
 public class SingletonDemo1 {
 
-	// 类 初始化时立即加载（没有延时加载优势）
+	// 类初始化时立即加载（没有延时加载优势）
 	//由于加载类时，天然的是线程安全的
 	private static SingletonDemo1 instance = new SingletonDemo1();
 
